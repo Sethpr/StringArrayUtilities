@@ -1,5 +1,9 @@
 package com.zipcodewilmington;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Created by leon on 1/29/18.
  */
@@ -25,7 +29,7 @@ public class StringArrayUtils {
      * @return last element in specified array
      */ // TODO
     public static String getLastElement(String[] array) {
-        return null;
+        return array[array.length-1];
     }
 
     /**
@@ -33,7 +37,7 @@ public class StringArrayUtils {
      * @return second to last element in specified array
      */ // TODO
     public static String getSecondToLastElement(String[] array) {
-        return null;
+        return array[array.length-2];
     }
 
     /**
@@ -42,6 +46,11 @@ public class StringArrayUtils {
      * @return true if the array contains the specified `value`
      */ // TODO
     public static boolean contains(String[] array, String value) {
+        for(String s:array){
+            if(s.equals(value)){
+                return true;
+            }
+        }
         return false;
     }
 
@@ -50,7 +59,12 @@ public class StringArrayUtils {
      * @return an array with identical contents in reverse order
      */ // TODO
     public static String[] reverse(String[] array) {
-        return null;
+        String[] arr = new String[array.length];
+        for(int i = 0; i<arr.length; i++){
+            arr[i] = array[array.length - i -1];
+        }
+
+        return arr;
     }
 
     /**
@@ -58,7 +72,7 @@ public class StringArrayUtils {
      * @return true if the order of the array is the same backwards and forwards
      */ // TODO
     public static boolean isPalindromic(String[] array) {
-        return false;
+        return Arrays.equals(array, reverse(array));
     }
 
     /**
@@ -66,7 +80,19 @@ public class StringArrayUtils {
      * @return true if each letter in the alphabet has been used in the array
      */ // TODO
     public static boolean isPangramic(String[] array) {
-        return false;
+        boolean flag;
+        for (int i = 97; i <= 122; i++){
+            flag = false;
+            for (String s : array) {
+                if(s.toLowerCase().contains(String.valueOf((char) i))){
+                    flag = true;
+                }
+            }
+            if(!flag){
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
@@ -75,7 +101,13 @@ public class StringArrayUtils {
      * @return number of occurrences the specified `value` has occurred
      */ // TODO
     public static int getNumberOfOccurrences(String[] array, String value) {
-        return 0;
+        int counter = 0;
+        for(String s: array){
+            if(s.equals(value)){
+                counter++;
+            }
+        }
+        return counter;
     }
 
     /**
@@ -84,7 +116,14 @@ public class StringArrayUtils {
      * @return array with identical contents excluding values of `value`
      */ // TODO
     public static String[] removeValue(String[] array, String valueToRemove) {
-        return null;
+        ArrayList<String> arr = new ArrayList<>(List.of(array));
+        for(int i = 0; i< arr.size(); i++){
+            if(arr.get(i).equals(valueToRemove)){
+                arr.remove(i);
+                i--;
+            }
+        }
+        return arr.toArray(new String[0]);
     }
 
     /**
@@ -92,7 +131,17 @@ public class StringArrayUtils {
      * @return array of Strings with consecutive duplicates removes
      */ // TODO
     public static String[] removeConsecutiveDuplicates(String[] array) {
-        return null;
+        ArrayList<String> arr = new ArrayList<>(List.of(array));
+        String current;
+        for(int i = 1; i<arr.size(); i++){
+            current = arr.get(i);
+            if(arr.get(i-1).equals(current)){
+                arr.remove(i);
+                i--;
+            }
+        }
+        System.out.println(arr);
+        return arr.toArray(new String[0]);
     }
 
     /**
@@ -100,7 +149,17 @@ public class StringArrayUtils {
      * @return array of Strings with each consecutive duplicate occurrence concatenated as a single string in an array of Strings
      */ // TODO
     public static String[] packConsecutiveDuplicates(String[] array) {
-        return null;
+        ArrayList<String> arr = new ArrayList<>(List.of(array));
+        String current;
+        for(int i = 1; i<arr.size(); i++){
+            current = String.valueOf(arr.get(i).charAt(0));
+            if(String.valueOf(arr.get(i-1).charAt(0)).equals(current)){
+                arr.set(i-1, arr.get(i-1)+current);
+                arr.remove(i);
+                i--;
+            }
+        }
+        return arr.toArray(new String[0]);
     }
 
 
